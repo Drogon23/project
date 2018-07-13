@@ -1,0 +1,140 @@
+header {
+	margin: 60px 0 0 20px;
+}
+
+h1 {
+	float: left;
+	color: darkgreen;
+	display: inline-block;
+	-webkit-transform: rotate(-30deg);
+}
+
+header > p {
+	text-align: center;
+	font-size: 200%;
+	font-weight: bold;
+}
+
+.add {
+	float: left;
+	margin: 0 0 0 955px;
+}
+
+.add > button {
+	background-color: skyblue;
+	color: white;
+	font-size: 15px;
+	box-shadow: 1px 1px 2px gray;
+	border: transparent;
+	height: 40px;
+	width: 160px;
+	cursor: pointer;
+}
+
+.wrap {
+	margin: 0 10px 0 150px;
+	float: left;
+	clear: left;
+}
+
+form {
+	width: 30%;
+	margin: auto;
+}
+
+.content {
+	margin: 10px 0 0 20px;
+}
+
+.content > .mvleft {
+	float: right;
+	margin-right: 10px;
+	font-size: 10px;
+	width: 30px;
+	height: 25px;
+	cursor: pointer;
+}
+
+form > .des {
+	font-size: 120%;
+	margin-bottom: -10px;
+}
+
+form > p > .title {
+	height: 40px;
+	width: 550px;
+	font-size: 140%;
+}
+
+form > p > .name {
+	height: 40px;
+	width: 200px;
+	font-size: 140%;
+}
+
+form > .back {
+	text-align: center;
+	background-color: #fff;
+	list-style: none;
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	margin-right: 180px;
+	font-size: 16px;
+	border: 1px solid black;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+form > p > .sequence {
+	margin-bottom: 30px;
+}
+
+form > .btn {
+	text-align: center;
+	color: #fff;
+	background-color: #3cb4ff;
+	list-style: none;
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+	line-height: 40px;
+	box-shadow: 1px 1px 2px gray;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+table, th, td {
+	width: 400px;
+	float: left;
+}
+
+table {
+	margin: 0 10px 0 0;
+}
+
+th {
+	text-align: left;
+	color: white;
+	background-color: navy;
+	height: 60px;
+	line-height: 60px;
+}
+
+th > span {
+	padding-left: 20px;
+}
+
+td {
+	margin-top: 10px;
+	height: 80px;
+	background-color: lightblue;
+	line-height: 30px;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: bold;
+	vertical-align: middle;
+}
