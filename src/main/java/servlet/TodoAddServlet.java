@@ -23,7 +23,7 @@ public class TodoAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/* 
-	 * 할일 데이터 추가 후 MainServlet으로 포워딩
+	 * 할일 데이터 추가 후 MainServlet으로 redirect
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
@@ -38,9 +38,7 @@ public class TodoAddServlet extends HttpServlet {
 		TodoDao todoDao = new TodoDao();
 		todoDao.addTodo(todoDto);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/MainServlet");
-		rd.forward(request, response);
-
+		response.sendRedirect("/MainServlet");
 	}
 
 }
