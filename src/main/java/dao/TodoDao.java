@@ -1,5 +1,7 @@
 package dao;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import dto.TodoDto;
 
@@ -17,71 +20,41 @@ import dto.TodoDto;
  *
  */
 public class TodoDao {
-	private static String dburl = "jdbc:mysql://localhost:3306/pjt2?serverTimezone=Asia/Seoul&useSSL=false";
-	private static String dbUser = Mysql.getDbuser();
-	private static String dbpasswd = Mysql.getDbpasswd();
+	private static Connection conn;
+	private static Properties statementProperty;
+
+	public TodoDao() {
+		InputStream inputStream = getClass().getResourceAsStream("/statement.properties");
+		statementProperty = new Properties();
+		try {
+			statementProperty.load(inputStream);
+			conn = DatabaseConnection.getConnection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
-	 * type에 따른 데이터 리스트 반환
+	 * DB에 저장되어 있는 모든 데이터 반환
 	 * 
-	 * @return type에 따른 데이터 List
+	 * @return DB에 있는 모든 데이터
 	 */
-	public List<TodoDto> getTodoList(String inputType) {
+	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+		String sql = statementProperty.getProperty("getTodosSql");
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-			String sql = "SELECT * FROM todo WHERE type= ?";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, inputType);
-			rs = ps.executeQuery();
+		try (PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				Long id = rs.getLong("id");
-				String title = rs.getString("title");
-				String name = rs.getString("name");
-				int sequence = rs.getInt("sequence");
-				String type = rs.getString("type");
-				String regdate = rs.getString("regdate");
-				TodoDto todoDto = new TodoDto();
-				todoDto.setId(id);
-				todoDto.setTitle(title);
-				todoDto.setName(name);
-				todoDto.setSequence(sequence);
-				todoDto.setType(type);
-				todoDto.setRegdate(regdate);
+
+				TodoDto todoDto = new TodoDto(rs);
 				todoList.add(todoDto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-
+		DatabaseConnection.close();
 		return todoList;
 	}
 
@@ -92,17 +65,9 @@ public class TodoDao {
 	 */
 	public int addTodo(TodoDto todoDto) {
 		int insertCount = 0;
-		Connection conn = null;
-		PreparedStatement ps = null;
+		String sql = statementProperty.getProperty("addTodoSql");
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-
-			String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
-
-			ps = conn.prepareStatement(sql);
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setString(1, todoDto.getTitle());
 			ps.setString(2, todoDto.getName());
@@ -112,24 +77,8 @@ public class TodoDao {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
-
+		DatabaseConnection.close();
 		return insertCount;
 	}
 
@@ -138,29 +87,16 @@ public class TodoDao {
 	 * 
 	 * @return 데이터 수정 성공시 1
 	 */
-	public int updateType(Long id, String type) {
+	public int updateTodo(Long id, String type) {
 		int updateCount = 0;
 
-		Connection conn = null;
-		PreparedStatement ps = null;
+		String sql = statementProperty.getProperty("updateTodoSql");
+		try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
-
-			String sql = "UPDATE todo SET type = ? WHERE id = ?";
-
-			ps = conn.prepareStatement(sql);
-
-			if (type.equalsIgnoreCase("TODO")) {
+			if (type.equals("TODO")) {
 				type = "DOING";
-			} else if (type.equalsIgnoreCase("DOING")) {
-				type = "DONE";
 			} else {
-				type = null;
-				System.out.println("ERROR");
-				return 0;
+				type = "DONE";
 			}
 			ps.setString(1, type);
 			ps.setLong(2, id);
@@ -169,23 +105,8 @@ public class TodoDao {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-
-			if (ps != null) {
-				try {
-					ps.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
+		DatabaseConnection.close();
 
 		return updateCount;
 	}

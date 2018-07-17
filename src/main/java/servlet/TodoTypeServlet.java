@@ -28,7 +28,7 @@ public class TodoTypeServlet extends HttpServlet {
 		throws ServletException, IOException {
 
 		TodoDao todoDao = new TodoDao();
-		int count = todoDao.updateType(Long.parseLong(request.getParameter("id")), request.getParameter("type"));
+		int count = todoDao.updateTodo(Long.parseLong(request.getParameter("id")), request.getParameter("type"));
 		PrintWriter out = response.getWriter();
 		if (count == 1) {
 			out.print("success");
@@ -37,5 +37,7 @@ public class TodoTypeServlet extends HttpServlet {
 		}
 
 	}
+	
+	
 
 }

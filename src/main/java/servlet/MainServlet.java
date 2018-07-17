@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,9 +32,20 @@ public class MainServlet extends HttpServlet {
 
 		TodoDao todoDao = new TodoDao();
 
-		List<TodoDto> todoList = todoDao.getTodoList("TODO");
-		List<TodoDto> doingList = todoDao.getTodoList("DOING");
-		List<TodoDto> doneList = todoDao.getTodoList("DONE");
+		List<TodoDto> todos = todoDao.getTodos();
+		List<TodoDto> todoList = new ArrayList<>();
+		List<TodoDto> doingList = new ArrayList<>();
+		List<TodoDto> doneList = new ArrayList<>();
+
+		for (int i = 0; i < todos.size(); i++) {
+			if (todos.get(i).getType().equals("TODO")) {
+				todoList.add(todos.get(i));
+			} else if (todos.get(i).getType().equals("DOING")) {
+				doingList.add(todos.get(i));
+			} else {
+				doneList.add(todos.get(i));
+			}
+		}
 
 		request.setAttribute("todoList", todoList);
 		request.setAttribute("doingList", doingList);
@@ -48,7 +60,7 @@ public class MainServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		
+
 		this.doGet(request, response);
 	}
 

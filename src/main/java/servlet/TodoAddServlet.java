@@ -38,7 +38,7 @@ public class TodoAddServlet extends HttpServlet {
 		TodoDao todoDao = new TodoDao();
 		todoDao.addTodo(todoDto);
 
-		response.sendRedirect("/MainServlet");
+		response.sendRedirect("MainServlet");
 	}
 
 }

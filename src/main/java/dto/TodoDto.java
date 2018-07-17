@@ -1,5 +1,10 @@
 package dto;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.cj.protocol.Resultset;
+
 /**
  * todolist 데이터를 담기 위한 객체
  * 
@@ -18,7 +23,23 @@ public class TodoDto {
 	public TodoDto() {
 		
 	}
-	
+		
+	public TodoDto(ResultSet rs) {
+		
+		try {
+			this.id = rs.getLong("id");
+			this.name = rs.getString("name");
+			this.regdate = rs.getString("regdate");
+			this.sequence = rs.getInt("sequence");
+			this.title = rs.getString("title");
+			this.type = rs.getString("type");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 	public long getId() {
 		return id;
 	}
