@@ -28,8 +28,9 @@
 				<c:forEach var="todoList" items="${todoList}">
 					<td>
 						<div class="content">
-							<span class="title">${todoList.title}</span><br>
-							${todoList.regdate}, ${todoList.name}, 우선순위 ${todoList.sequence}
+							<span class="title">${todoList.title}</span><br> 
+							<span class="des">${todoList.regdate}, ${todoList.name}, 우선순위
+								${todoList.sequence}</span>
 							<button class="mvright"
 								onclick="changeType(${todoList.id},'${todoList.type}')">➜</button>
 						</div>
@@ -44,9 +45,9 @@
 				<c:forEach var="doingList" items="${doingList}">
 					<td>
 						<div class="content">
-							<span class="title">${doingList.title}</span><br>
-							${doingList.regdate}, ${doingList.name}, 우선순위
-							${doingList.sequence}
+							<span class="title">${doingList.title}</span><br> 
+							<span class="des">${doingList.regdate}, ${doingList.name}, 우선순위
+								${doingList.sequence}</span>
 							<button class="mvright"
 								onclick="changeType(${doingList.id},'${doingList.type}')">➜</button>
 						</div>
@@ -60,8 +61,9 @@
 				<c:forEach var="doneList" items="${doneList}">
 					<td>
 						<div class="content">
-							<span class="title">${doneList.title}</span><br>
-							${doneList.regdate}, ${doneList.name}, 우선순위 ${doneList.sequence}
+							<span class="title">${doneList.title}</span><br> 
+							<span class="des">${doneList.regdate}, ${doneList.name}, 우선순위
+								${doneList.sequence}</span>
 						</div>
 					</td>
 				</c:forEach>

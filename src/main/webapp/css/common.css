@@ -1,5 +1,5 @@
 header {
-	margin: 60px 0 0 20px;
+	margin: 6vh 0 0 2vw;
 }
 
 h1 {
@@ -11,28 +11,28 @@ h1 {
 
 header > p {
 	text-align: center;
-	font-size: 200%;
+	font-size: 3vmin;
 	font-weight: bold;
 }
 
 .add {
 	float: left;
-	margin: 0 0 0 955px;
+	margin: 0 0 0 47vw;
 }
 
 .add > button {
 	background-color: skyblue;
 	color: white;
-	font-size: 15px;
+	font-size: 0.8vw;
 	box-shadow: 1px 1px 2px gray;
 	border: transparent;
-	height: 40px;
-	width: 160px;
+	height: 4vh;
+	width: 8vw;
 	cursor: pointer;
 }
 
 .wrap {
-	margin: 0 10px 0 150px;
+	margin: 0 1vw 0 10vw;
 	float: left;
 	clear: left;
 }
@@ -42,34 +42,26 @@ form {
 	margin: auto;
 }
 
-.content {
-	margin: 10px 0 0 20px;
-}
-
-.content > .mvright {
-	float: right;
-	margin-right: 10px;
-	font-size: 10px;
-	width: 30px;
-	height: 25px;
-	cursor: pointer;
-}
-
-form > .des {
-	font-size: 120%;
-	margin-bottom: -10px;
+.pcontent {
+	font-size: 2vmin;
+	margin-bottom: -1vh;
 }
 
 form > p > .title {
-	height: 40px;
-	width: 550px;
-	font-size: 140%;
+	height: 4vh;
+	width: 30vw;
+	font-size: 2vmin;
 }
 
 form > p > .name {
-	height: 40px;
-	width: 200px;
-	font-size: 140%;
+	height: 4vh;
+	width: 10vw;
+	font-size: 2vmin;
+}
+
+form > .sequence {
+	margin-bottom: 5vh;
+  	font-size: 1.5vmin;
 }
 
 form > .back {
@@ -77,18 +69,14 @@ form > .back {
 	background-color: #fff;
 	list-style: none;
 	display: inline-block;
-	width: 120px;
-	height: 40px;
-	line-height: 40px;
-	margin-right: 180px;
-	font-size: 16px;
+	width: 6vw;
+	height: 4vh;
+	line-height: 4vh;
+	margin-right: 10vw;
+	font-size: 1.5vmin;
 	border: 1px solid black;
 	text-decoration: underline;
 	cursor: pointer;
-}
-
-form > p > .sequence {
-	margin-bottom: 30px;
 }
 
 form > .btn {
@@ -97,44 +85,62 @@ form > .btn {
 	background-color: #3cb4ff;
 	list-style: none;
 	display: inline-block;
-	width: 120px;
-	height: 40px;
-	line-height: 40px;
+	width: 6vw;
+	height: 4vh;
+	line-height: 4vh;
 	box-shadow: 1px 1px 2px gray;
-	font-size: 16px;
+	font-size: 1.5vmin;
 	cursor: pointer;
 }
 
 table, th, td {
-	width: 400px;
+	width: 20vw;
 	float: left;
 }
 
 table {
-	margin: 0 10px 0 0;
+	margin: 0 1vh 0 0;
 }
 
 th {
 	text-align: left;
 	color: white;
 	background-color: navy;
-	height: 60px;
-	line-height: 60px;
+	height: 8vh;
+	line-height: 8vh;
 }
 
 th > span {
-	padding-left: 20px;
+	padding-left: 1vw;
 }
 
 td {
-	margin-top: 10px;
-	height: 80px;
+	margin-top: 1vh;
+	height: 10vh;
 	background-color: lightblue;
-	line-height: 30px;
+	line-height: 3vh;
 }
 
-.title {
-	font-size: 18px;
+.content {
+	margin: 1vh 0 0 2vh;
+	padding-top: 1vh;
+}
+
+.content > .mvright {
+	float: right;
+	margin: 1vh 1vw 0 0;
+	font-size: 0.8vw;
+	width: 2vw;
+	height: 2.5vh;
+	cursor: pointer;
+}
+
+.content > .title {
+	font-size: 1vw;
 	font-weight: bold;
-	vertical-align: middle;
+	
+}
+
+.content > .des {
+	font-size: 0.8vw;
 }

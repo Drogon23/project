@@ -54,7 +54,7 @@ public class TodoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		DatabaseConnection.close();
+		DatabaseConnection.closeConnection();
 		return todoList;
 	}
 
@@ -78,7 +78,7 @@ public class TodoDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		DatabaseConnection.close();
+		DatabaseConnection.closeConnection();
 		return insertCount;
 	}
 
@@ -106,7 +106,7 @@ public class TodoDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		DatabaseConnection.close();
+		DatabaseConnection.closeConnection();
 
 		return updateCount;
 	}

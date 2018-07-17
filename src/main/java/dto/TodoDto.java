@@ -24,6 +24,11 @@ public class TodoDto {
 		
 	}
 		
+	/**
+	 * 데이터베이스 조회 결과값으로 TodoDto 변수 값 설정
+	 * 
+	 * @param rs 데이터베이스 결과값
+	 */
 	public TodoDto(ResultSet rs) {
 		
 		try {

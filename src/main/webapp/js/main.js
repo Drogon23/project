@@ -8,9 +8,9 @@ function changeType(id, type) {
 	var oReq = new XMLHttpRequest();
 
 	oReq.addEventListener("load", function() {
-
+		
 		if (this.responseText == "success") {
-
+			
 			var clicked = document.activeElement;
 
 			var clickedcontent = clicked.parentNode.parentNode;
@@ -29,6 +29,6 @@ function changeType(id, type) {
 		}
 	});
 
-	oReq.open("GET", "TodoTypeServlet?id=" + id + "&type=" + type);
+	oReq.open("PUT", "TodoTypeServlet?id=" + id + "&type=" + type);
 	oReq.send();
 }

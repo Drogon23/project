@@ -51,7 +51,7 @@ public class DatabaseConnection {
 	/**
 	 * DB와 연결 종료
 	 */
-	public static void close() {
+	public static void closeConnection() {
 		if (connection != null) {
 			try {
 				connection.close();

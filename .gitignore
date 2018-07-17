@@ -1,6 +1,6 @@
 /bin/
 
-.properties
+*.properties
 .metadata
 bin/
 tmp/

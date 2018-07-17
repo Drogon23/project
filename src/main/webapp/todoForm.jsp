@@ -17,19 +17,19 @@
 	</header>
 	<form name="todoform" method="post" action="TodoAddServlet"
 		onsubmit="return check()">
-		<p class="des">어떤일인가요?</p>
+		<p class="pcontent">어떤일인가요?</p>
 		<p>
 			<input type="box" name="title" class="title" maxlength="24">
 		</p>
-		<p class="des">누가 할일인가요?</p>
+		<p class="pcontent">누가 할일인가요?</p>
 		<p>
 			<input type="box" name="name" class="name">
 		</p>
-		<p class="des">우선순위를 선택하세요</p>
-		<p>
-			<input type="radio" id="seq1" name="seq" value="1" class="sequence">1순위&emsp;
-			<input type="radio" id="seq2" name="seq" value="2" class="sequence">2순위&emsp;
-			<input type="radio" id="seq3" name="seq" value="3" class="sequence">3순위
+		<p class="pcontent">우선순위를 선택하세요</p>
+		<p class="sequence">
+			<input type="radio" id="seq1" name="seq" value="1" >1순위&emsp;
+			<input type="radio" id="seq2" name="seq" value="2" >2순위&emsp;
+			<input type="radio" id="seq3" name="seq" value="3" >3순위
 		</p>
 		<input type="button" onclick="window.location.href='MainServlet'" class="back" value="<이전">
 		<input type="submit" class="btn">
