@@ -29,6 +29,7 @@ function changeType(id, type) {
 		}
 	});
 
-	oReq.open("PUT", "TodoTypeServlet?id=" + id + "&type=" + type);
-	oReq.send();
+	oReq.open("POST", "TodoTypeServlet");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	oReq.send("id="+id+"&type="+type);
 }

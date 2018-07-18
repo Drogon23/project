@@ -25,10 +25,10 @@ public class TodoTypeServlet extends HttpServlet {
 	/* 
 	 * todo->doing, doing->done으로 변경 후 성공시 'success' 실패시 'fail'출력
 	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		TodoDao todoDao = new TodoDao();
+		TodoDao todoDao = TodoDao.getInstance();
 
 		int count = todoDao.updateTodo(Long.parseLong(request.getParameter("id")), request.getParameter("type"));
 		PrintWriter out = response.getWriter();

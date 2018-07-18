@@ -38,7 +38,7 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		TodoDao todoDao = new TodoDao();
+		TodoDao todoDao =  TodoDao.getInstance();
 
 		List<TodoDto> todos = todoDao.getTodos();
 		todoList = new ArrayList<>();

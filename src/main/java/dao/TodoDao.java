@@ -20,18 +20,42 @@ import dto.TodoDto;
  *
  */
 public class TodoDao {
-	private static Connection conn;
-	private static Properties statementProperty;
+	private static Connection connection = null;
+	private static String dbUrl, dbUser, dbPasswd;
+	private static Properties databasePropery;
 
-	public TodoDao() {
-		InputStream inputStream = getClass().getResourceAsStream("/statement.properties");
-		statementProperty = new Properties();
-		try {
-			statementProperty.load(inputStream);
-			conn = DatabaseConnection.getConnection();
-		} catch (IOException e) {
-			e.printStackTrace();
+	/**
+	 * 현재 connection이 없을때만 초기화
+	 */
+	private TodoDao() {
+		if (connection == null) {
+			InputStream inputStreamDatabase = getClass().getResourceAsStream("/database.properties");
+			databasePropery = new Properties();
+			try {
+				databasePropery.load(inputStreamDatabase);
+				dbUrl = databasePropery.getProperty("dbUrl");
+				dbUser = databasePropery.getProperty("dbUser");
+				dbPasswd = databasePropery.getProperty("dbPasswd");
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				connection = DriverManager.getConnection(dbUrl, dbUser, dbPasswd);
+			} catch (final IOException | SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	/**
+	 * thread-safe를 보장하기 위한 클래스
+	 * 
+	 * @author 문기선
+	 *
+	 */
+	private static class LazyHolder {
+		private static final TodoDao INSTANCE = new TodoDao();
+	}
+
+	public static TodoDao getInstance() {
+		return LazyHolder.INSTANCE;
 	}
 
 	/**
@@ -41,9 +65,9 @@ public class TodoDao {
 	 */
 	public List<TodoDto> getTodos() {
 		List<TodoDto> todoList = new ArrayList<>();
-		String sql = statementProperty.getProperty("getTodosSql");
+		String sql = "SELECT * FROM todo ORDER BY sequence";
 
-		try (PreparedStatement ps = conn.prepareStatement(sql);
+		try (PreparedStatement ps = connection.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
@@ -54,7 +78,7 @@ public class TodoDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		DatabaseConnection.closeConnection();
+
 		return todoList;
 	}
 
@@ -65,9 +89,9 @@ public class TodoDao {
 	 */
 	public int addTodo(TodoDto todoDto) {
 		int insertCount = 0;
-		String sql = statementProperty.getProperty("addTodoSql");
+		String sql = "INSERT INTO todo(title, name, sequence) VALUES(?, ?, ?)";
 
-		try (PreparedStatement ps = conn.prepareStatement(sql)) {
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
 			ps.setString(1, todoDto.getTitle());
 			ps.setString(2, todoDto.getName());
@@ -78,24 +102,22 @@ public class TodoDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		DatabaseConnection.closeConnection();
 		return insertCount;
 	}
 
 	/**
-	 * 한건의 데이터 type을 todo->doing, doing->done으로 수정
+	 * 한건의 데이터 type을 수정
 	 * 
 	 * @return 데이터 수정 성공시 1
 	 */
 	public int updateTodo(Long id, String type) {
 		int updateCount = 0;
 
-		String sql = statementProperty.getProperty("updateTodoSql");
-		try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
-			if (type.equals("TODO")) {
+		String sql = "UPDATE todo SET type = ? WHERE id = ?";
+		try (PreparedStatement ps = connection.prepareStatement(sql)) {
+			if(type.equals("TODO")) {
 				type = "DOING";
-			} else {
+			}else {
 				type = "DONE";
 			}
 			ps.setString(1, type);
@@ -106,7 +128,6 @@ public class TodoDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		DatabaseConnection.closeConnection();
 
 		return updateCount;
 	}
